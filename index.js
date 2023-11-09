@@ -7,7 +7,7 @@ const {
   DB_PASSWORD,
   DB_HOST,
   IP_SERVER,
-  API_VERSION,
+  // API_VERSION,
 } = require("./constants");
 
 const PORT = process.env.POST || 3977;
@@ -22,7 +22,7 @@ mongoose.connect(
       console.log("######################");
       console.log("###### API REST ######");
       console.log("######################");
-      console.log(`http://${IP_SERVER}:${PORT}/api/${API_VERSION}`);
+      console.log(`http://${IP_SERVER}:${PORT}/api/`);
     });
   }
 );

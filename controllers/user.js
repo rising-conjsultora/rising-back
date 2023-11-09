@@ -28,25 +28,27 @@ async function getUsers(req, res) {
 }
 
 async function createUser(req, res) {
-  const { password } = req.body;
-  const user = new User({ ...req.body, active: false });
-
-  const salt = bcrypt.genSaltSync(10);
-  const hasPassword = bcrypt.hashSync(password, salt);
-  user.password = hasPassword;
-
-  if (req.files.avatar) {
-    const imagePath = image.getFilePath(req.files.avatar);
-    user.avatar = imagePath;
+  const {  username, password } = req.body;
+  console.log('no llega')
+  console.log(req.body)
+  if (!username) res.status(400).send({ msg: "El nombre de Usuario es obligatorio" });
+  else if (!password) res.status(400).send({ msg: "La contraseña es obligatoria" });
+  else{
+    const user = new User({
+      ...req.body,
+      username: username.toLowerCase(), 
+      active: false });  
+    const salt = bcrypt.genSaltSync(10);
+    const hasPassword = bcrypt.hashSync(password, salt);
+    user.password = hasPassword;  
+    user.save((error, userStored) => {
+      if (error) {
+        res.status(400).send({ msg: "Error al crear el usuario" });
+      } else {
+        res.status(201).send(userStored);
+      }
+    });
   }
-
-  user.save((error, userStored) => {
-    if (error) {
-      res.status(400).send({ msg: "Error al crear el usuario" });
-    } else {
-      res.status(201).send(userStored);
-    }
-  });
 }
 
 async function updateUser(req, res) {
@@ -59,11 +61,6 @@ async function updateUser(req, res) {
     userData.password = hashPassword;
   } else {
     delete userData.password;
-  }
-
-  if (req.files.avatar) {
-    const imagePath = image.getFilePath(req.files.avatar);
-    userData.avatar = imagePath;
   }
 
   User.findByIdAndUpdate({ _id: id }, userData, (error) => {

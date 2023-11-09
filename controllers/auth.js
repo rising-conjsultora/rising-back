@@ -3,52 +3,59 @@ const User = require("../models/user");
 const jwt = require("../utils/jwt");
 
 function register(req, res) {
-  const { firstname, lastname, email, password } = req.body;
+  const { name, username, password } = req.body;
 
-  if (!email) res.status(400).send({ msg: "El nombre de Usuario es obligatorio" });
-  if (!password) res.status(400).send({ msg: "La contraseña es obligatoria" });
+  if (!username) res.status(400).send({ msg: "El nombre de Usuario es obligatorio" });
+  else if (!password) res.status(400).send({ msg: "La contraseña es obligatoria" });
+  else {
+    const user = new User({
+      name,
+      username: username.toLowerCase(),
+      role: "user",
+      active: false,
+    });
+  
+    const salt = bcrypt.genSaltSync(10);
+    const hashPassword = bcrypt.hashSync(password, salt);
+    user.password = hashPassword;
+  
+    user.save((error, userStorage) => {
+      if (error) {      
+        res.status(400).send({ msg: "Error al crear el usuario" });
+      } else {
+        res.status(200).send(userStorage);
+      }
+    });
+  }
 
-  const user = new User({
-    firstname,
-    lastname,
-    email: email.toLowerCase(),
-    role: "user",
-    active: false,
-  });
 
-  const salt = bcrypt.genSaltSync(10);
-  const hashPassword = bcrypt.hashSync(password, salt);
-  user.password = hashPassword;
-
-  user.save((error, userStorage) => {
-    if (error) {
-      res.status(400).send({ msg: "Error al crear el usuario" });
-    } else {
-      res.status(200).send(userStorage);
-    }
-  });
 }
 
 function login(req, res) {
-  const { email, password } = req.body;
+  const { username, password } = req.body;
 
-  if (!email) res.status(400).send({ msg: "El nombre de Usuario es obligatorio" });
+  if (!username) res.status(400).send({ msg: "El nombre de Usuario es obligatorio" });
   if (!password) res.status(400).send({ msg: "La contraseña es obligatoria" });
 
-  const emailLowerCase = email.toLowerCase();
+  const usernameLowerCase = username.toLowerCase();
 
-  User.findOne({ email: emailLowerCase }, (error, userStore) => {
+  User.findOne({ username: usernameLowerCase }, (error, userStore) => {
     if (error) {
       res.status(500).send({ msg: "Error del servidor" });
-    } else {
+    }
+    else if(!userStore){
+      res.status(400).send({msg:"Error al autenticar 0"})
+    }   
+    else {     
       bcrypt.compare(password, userStore.password, (bcryptError, check) => {
         if (bcryptError) {
           res.status(500).send({ msg: "Error del servidor" });
         } else if (!check) {
-          res.status(400).send({ msg: "Contraseña incorrecta" });
+          res.status(400).send({ msg: "Error al autenticar 1" });
         } else if (!userStore.active) {
-          res.status(401).send({ msg: "Usuario no autorizado o no activo" });
-        } else {
+          res.status(400).send({ msg: "Error al autenticar 2" });
+        }             
+        else {
           res.status(200).send({
             access: jwt.createAccessToken(userStore),
             refresh: jwt.createRefreshToken(userStore),

@@ -10,8 +10,8 @@ function asureAuth(req, res, next) {
   const token = req.headers.authorization.replace("Bearer ", "");
 
   try {
+  
     const payload = jwt.decoded(token);
-
     const { exp } = payload;
     const currentData = new Date().getTime();
 
@@ -26,6 +26,26 @@ function asureAuth(req, res, next) {
   }
 }
 
+function roleAuth(req, res, next) { 
+  const token = req.headers.authorization.replace("Bearer ", "");
+
+  try {
+  
+    const payload = jwt.decoded(token);
+    const { role } = payload;
+
+    if (role != "admin") {
+      return res.status(400).send({ msg: "rol no valido" });
+    }
+
+    req.user = payload;
+    next();
+  } catch (error) {
+    return res.status(400).send({ msg: "rol incorrecto" });
+  }
+}
+
 module.exports = {
   asureAuth,
+  roleAuth
 };

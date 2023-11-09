@@ -24,11 +24,19 @@ app.use(express.static("uploads"));
 app.use(cors());
 
 // Configure routings
-app.use(`/api/${API_VERSION}`, authRoutes);
-app.use(`/api/${API_VERSION}`, userRoutes);
-app.use(`/api/${API_VERSION}`, menuRoutes);
-app.use(`/api/${API_VERSION}`, courseRoutes);
-app.use(`/api/${API_VERSION}`, postRoutes);
-app.use(`/api/${API_VERSION}`, newsletterRoutes);
+// app.use(`/api/${API_VERSION}`, authRoutes);
+// app.use(`/api/${API_VERSION}`, userRoutes);
+// app.use(`/api/${API_VERSION}`, menuRoutes);
+// app.use(`/api/${API_VERSION}`, courseRoutes);
+// app.use(`/api/${API_VERSION}`, postRoutes);
+// app.use(`/api/${API_VERSION}`, newsletterRoutes);
+
+
+app.use(`/api`, authRoutes);
+app.use(`/api`, userRoutes);
+app.use(`/api`, menuRoutes);
+app.use(`/api`, courseRoutes);
+app.use(`/api`, postRoutes);
+app.use(`/api`, newsletterRoutes);
 
 module.exports = app;

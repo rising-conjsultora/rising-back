@@ -2,12 +2,13 @@ const jwt = require("jsonwebtoken");
 const { JWT_SECRET_KEY } = require("../constants");
 
 function createAccessToken(user) {
+  console.log(user)
   const expToken = new Date();
-  expToken.setHours(expToken.getHours() + 3);
-
+  expToken.setHours(expToken.getHours() + 2);
   const payload = {
     token_type: "access",
     user_id: user._id,
+    role:user.role,
     iat: Date.now(),
     exp: expToken.getTime(),
   };
@@ -22,6 +23,7 @@ function createRefreshToken(user) {
   const payload = {
     token_type: "refresh",
     user_id: user._id,
+    role:user.role,
     iat: Date.now(),
     exp: expToken.getTime(),
   };

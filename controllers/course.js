@@ -6,6 +6,7 @@ function createCourse(req, res) {
 
   const imagePath = image.getFilePath(req.files.miniature);
   course.miniature = imagePath;
+  
 
   course.save((error, courseStored) => {
     if (error) {
@@ -22,9 +23,11 @@ function getCourse(req, res) {
   const options = {
     page: parseInt(page),
     limit: parseInt(limit),
+    sort: { _id: -1 }
   };
 
   Course.paginate({}, options, (error, courses) => {
+    console.log(courses)
     if (error) {
       res.status(400).send({ msg: "Error al obtener los cursos" });
     } else {

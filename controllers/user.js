@@ -1,6 +1,5 @@
 const bcrypt = require("bcryptjs");
 const User = require("../models/user");
-const image = require("../utils/image");
 
 async function getMe(req, res) {
   const { user_id } = req.user;
@@ -29,8 +28,7 @@ async function getUsers(req, res) {
 
 async function createUser(req, res) {
   const {  username, password } = req.body;
-  console.log('no llega')
-  console.log(req.body)
+
   if (!username) res.status(400).send({ msg: "El nombre de Usuario es obligatorio" });
   else if (!password) res.status(400).send({ msg: "La contraseña es obligatoria" });
   else{

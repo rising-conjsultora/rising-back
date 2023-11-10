@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "El api de la web personal",
   "main": "index.js",
-  "author": "Agustin Navarro Galdon",
+  "author": "danny cc",
   "license": "MIT",
   "scripts": {
     "start": "node index.js",

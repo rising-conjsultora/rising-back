@@ -1,8 +1,10 @@
 const Transacion = require("../models/transaction");
 
 
-async function getTransactions(req, res) {    
-    response = await Transacion.find();
+async function getTransactions(req, res) { 
+  const ci=req.params.ci
+    console.log(req.params)   
+    response = await Transacion.find({ci});
     res.status(200).send(response);
 }
 

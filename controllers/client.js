@@ -1,21 +1,5 @@
 const Client = require("../models/client");
 
-// function getClients(req, res) {
-  
-//   const { page = 1, limit = 10 } = req.query;
-//   const options = {
-//     page: parseInt(page),
-//     limit: parseInt(limit),
-//     sort: { created_at: "desc" },
-//   };
-//   Client.paginate({}, options, (error, clientsStored) => {
-//     if (error) {
-//       res.status(400).send({ msg: "Error al obtener los clientes" });
-//     } else {
-//       res.status(200).send(clientsStored);
-//     }
-//   });
-// }
 
 async function getClients(req, res) {    
     response = await Client.find();

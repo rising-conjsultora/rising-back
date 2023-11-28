@@ -6,17 +6,10 @@ const md_auth = require("../middlewares/authenticated");
 const md_updload = multiparty({ uploadDir: "./uploads/course" });
 const api = express.Router();
 
-api.post(
-  "/course",
-  [md_auth.asureAuth, md_updload],
-  CourseController.createCourse
-);
+api.post("/course",[md_auth.asureAuth, md_updload],CourseController.createCourse);
 api.get("/course", CourseController.getCourse);
-api.patch(
-  "/course/:id",
-  [md_auth.asureAuth, md_updload],
-  CourseController.updateCourse
-);
+api.get("/allcourses", CourseController.getAllCourses);
+api.patch("/course/:id",[md_auth.asureAuth, md_updload],CourseController.updateCourse);
 api.delete("/course/:id", [md_auth.asureAuth], CourseController.deleteCourse);
 
 module.exports = api;

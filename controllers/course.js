@@ -36,6 +36,12 @@ function getCourse(req, res) {
   });
 }
 
+async function getAllCourses(req, res) {    
+  response = await Course.find();
+  res.status(200).send(response);
+}
+
+
 function updateCourse(req, res) {
   const { id } = req.params;
   const courseData = req.body;
@@ -71,4 +77,5 @@ module.exports = {
   getCourse,
   updateCourse,
   deleteCourse,
+  getAllCourses
 };

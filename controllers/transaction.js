@@ -2,10 +2,21 @@ const Transacion = require("../models/transaction");
 
 
 async function getTransactions(req, res) { 
-  const ci=req.params.ci
-    console.log(req.params)   
-    response = await Transacion.find({ci});
-    res.status(200).send(response);
+  const clientid=req.params.clientid;
+    console.log(clientid)     
+    try {
+      const transactions = await Transacion.find({clientid:clientid});      
+      if (transactions) {
+        console.log(transactions)
+        res.status(200).send(transactions);
+      } else {
+        res.status(404).send({msg:'usuario no encontrado'});
+      }
+    } catch (error) {
+      res.status(500).send({msg:'se produjo un error'});
+      // Manejar el error, si es necesario
+    }
+    
 }
 
 async function createTransaction(req, res) {

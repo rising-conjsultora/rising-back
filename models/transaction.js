@@ -6,6 +6,7 @@ const transactionSchema = mongoose.Schema({
   city:String,
   clientci:String,
   clientname:String,
+  clientid:String,
   price:Number,
   seller:String,
   date:Date,

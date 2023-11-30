@@ -22,16 +22,16 @@ app.use(express.static("uploads"));
 
 app.use(cors());
 // app.use('/',authRoutes)
-app.use(`/api`, authRoutes);
-app.use(`/api`, userRoutes);
-app.use(`/api`, clientRoutes);
-app.use(`/api`, transactionRoutes);
+app.use(`/`, authRoutes);
+app.use(`/`, userRoutes);
+app.use(`/`, clientRoutes);
+app.use(`/`, transactionRoutes);
 
-app.use(`/api`, courseRoutes);
+app.use(`/`, courseRoutes);
 
-app.use(`/api`, menuRoutes);
-app.use(`/api`, postRoutes);
-app.use(`/api`, newsletterRoutes);
+app.use(`/`, menuRoutes);
+app.use(`/`, postRoutes);
+app.use(`/`, newsletterRoutes);
 
 
 

@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const app = require("./app");
+const app = require("../app");
 const {
   IP_DATABASE,
   PORT_DB,
@@ -8,7 +8,7 @@ const {
   DB_HOST,
   IP_SERVER,
   // API_VERSION,
-} = require("./constants");
+} = require("../constants");
 
 const PORT = process.env.POST || 3977;
 

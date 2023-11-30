@@ -21,7 +21,7 @@ app.use(express.static("uploads"));
 
 
 app.use(cors());
-app.use('/',authRoutes)
+// app.use('/',authRoutes)
 app.use(`/api`, authRoutes);
 app.use(`/api`, userRoutes);
 app.use(`/api`, clientRoutes);

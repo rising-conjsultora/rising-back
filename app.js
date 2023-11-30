@@ -37,4 +37,6 @@ app.use(`/api`, menuRoutes);
 app.use(`/api`, postRoutes);
 app.use(`/api`, newsletterRoutes);
 
+
+
 module.exports = app;

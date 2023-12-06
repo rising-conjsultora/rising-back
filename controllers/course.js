@@ -18,6 +18,7 @@ function createCourse(req, res) {
 }
 
 function getCourse(req, res) {
+  console.log(req.query)
   const { page = 1, limit = 10 } = req.query;
 
   const options = {

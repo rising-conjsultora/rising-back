@@ -26,8 +26,8 @@ app.use(`/`, authRoutes);
 app.use(`/`, userRoutes);
 app.use(`/`, clientRoutes);
 app.use(`/`, transactionRoutes);
-
 app.use(`/`, courseRoutes);
+
 
 app.use(`/`, menuRoutes);
 app.use(`/`, postRoutes);

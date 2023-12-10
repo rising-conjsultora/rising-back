@@ -4,6 +4,12 @@ const mongoosePaginate = require("mongoose-paginate");
 const PostSchema = mongoose.Schema({
   title: String,
   miniature: String,
+
+  position:String,
+  requirements:String,
+  date:String,
+  pay:Number,
+
   content: String,
   path: {
     type: String,

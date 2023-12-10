@@ -2,14 +2,25 @@ const Post = require("../models/post");
 const image = require("../utils/image");
 
 function createPost(req, res) {
-  const post = new Post(req.body);
-  post.created_at = new Date();
+  const post = new Post();
+  const registro = new Post({
+    ...req.body,
+    path:post._id.toString()
 
-  const imagePath = image.getFilePath(req.files.miniature);
-  post.miniature = imagePath;
+  });
+  // const registro=new Object(
+  //   {...post,
+  //   path:post._id.toString()}
+  // )
+  console.log(registro)
+  // post.created_at = new Date();
 
-  post.save((error, postStored) => {
+  // const imagePath = image.getFilePath(req.files.miniature);
+  // post.miniature = imagePath;
+
+  registro.save((error, postStored) => {
     if (error) {
+      // console.log(error)
       res.status(400).send({ msg: "Error al creat el post" });
     } else {
       res.status(201).send(postStored);

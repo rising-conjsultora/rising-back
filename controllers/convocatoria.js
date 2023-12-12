@@ -1,9 +1,9 @@
-const Post = require("../models/post");
+const Convocatoria = require("../models/convocatoria");
 const image = require("../utils/image");
 
-function createPost(req, res) {
-  const post = new Post();
-  const registro = new Post({
+function createConvocatoria(req, res) {
+  const post = new Convocatoria();
+  const registro = new Convocatoria({
     ...req.body,
     path:post._id.toString()
 
@@ -28,7 +28,7 @@ function createPost(req, res) {
   });
 }
 
-function getPosts(req, res) {
+function getConvocatorias(req, res) {
   const { page = 1, limit = 10 } = req.query;
 
   const options = {
@@ -37,7 +37,7 @@ function getPosts(req, res) {
     sort: { created_at: "desc" },
   };
 
-  Post.paginate({}, options, (error, postsStored) => {
+  Convocatoria.paginate({}, options, (error, postsStored) => {
     if (error) {
       res.status(400).send({ msg: "Error al obtener los posts" });
     } else {
@@ -46,7 +46,7 @@ function getPosts(req, res) {
   });
 }
 
-function updatePost(req, res) {
+function updateConvocatoria(req, res) {
   const { id } = req.params;
   const postData = req.body;
 
@@ -55,7 +55,7 @@ function updatePost(req, res) {
     postData.miniature = imagePath;
   }
 
-  Post.findByIdAndUpdate({ _id: id }, postData, (error) => {
+  Convocatoria.findByIdAndUpdate({ _id: id }, postData, (error) => {
     if (error) {
       res.status(400).send({ msg: "Error al actualizar el post" });
     } else {
@@ -64,10 +64,10 @@ function updatePost(req, res) {
   });
 }
 
-function deletePost(req, res) {
+function deleteConvocatoria(req, res) {
   const { id } = req.params;
 
-  Post.findByIdAndDelete(id, (error) => {
+  Convocatoria.findByIdAndDelete(id, (error) => {
     if (error) {
       res.status(400).send({ msg: "Error al eliminar el post" });
     } else {
@@ -76,10 +76,10 @@ function deletePost(req, res) {
   });
 }
 
-function getPost(req, res) {
+function getConvocatoria(req, res) {
   const { path } = req.params;
 
-  Post.findOne({ path }, (error, postStored) => {
+  Convocatoria.findOne({ path }, (error, postStored) => {
     if (error) {
       res.status(500).send({ msg: "Error del servidor" });
     } else if (!postStored) {
@@ -91,9 +91,9 @@ function getPost(req, res) {
 }
 
 module.exports = {
-  createPost,
-  getPosts,
-  updatePost,
-  deletePost,
-  getPost,
+  createConvocatoria,
+  getConvocatorias,
+  updateConvocatoria,
+  deleteConvocatoria,
+  getConvocatoria,
 };

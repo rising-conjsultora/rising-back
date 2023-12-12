@@ -10,7 +10,7 @@ const transactionRoutes= require("./router/transaction")
 
 const menuRoutes = require("./router/menu");
 const courseRoutes = require("./router/course");
-const postRoutes = require("./router/post");
+const convocatoriaRoutes = require("./router/convocatoria");
 const newsletterRoutes = require("./router/newsletter");
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -30,7 +30,7 @@ app.use(`/`, courseRoutes);
 
 
 app.use(`/`, menuRoutes);
-app.use(`/`, postRoutes);
+app.use(`/`, convocatoriaRoutes);
 app.use(`/`, newsletterRoutes);
 
 

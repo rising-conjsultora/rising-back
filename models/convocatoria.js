@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const mongoosePaginate = require("mongoose-paginate");
 
-const PostSchema = mongoose.Schema({
+const ConvocatoriaSchema = mongoose.Schema({
   title: String,
   miniature: String,
 
@@ -18,6 +18,6 @@ const PostSchema = mongoose.Schema({
   created_at: Date,
 });
 
-PostSchema.plugin(mongoosePaginate);
+ConvocatoriaSchema.plugin(mongoosePaginate);
 
-module.exports = mongoose.model("Post", PostSchema);
+module.exports = mongoose.model("Convocatoria", ConvocatoriaSchema);

@@ -1,5 +1,17 @@
 const Transacion = require("../models/transaction");
 
+async function getVerificateTransaction(req, res) {
+  const { transactionid } = req.params;
+
+  const response = await Transacion.findById(transactionid);
+
+  if (!response) {
+    res.status(400).send({ msg: "Verifique el codigo" });
+  } else {
+    console.log(response)
+    res.status(200).send({course:response.course,clientname:response.clientname,clientci:response.clientci});
+  }
+}
 
 async function getTransactions(req, res) { 
   const clientid=req.params.clientid;
@@ -60,6 +72,7 @@ async function deleteClient(req, res) {
 }
 
 module.exports = { 
+  getVerificateTransaction,
   getTransactions,
   createTransaction,
   updateClient,

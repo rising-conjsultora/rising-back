@@ -1,15 +1,28 @@
-const Transacion = require("../models/transaction");
+const Transaction = require("../models/transaction");
+const mongoose = require('mongoose');
 
 async function getVerificateTransaction(req, res) {
   const { transactionid } = req.params;
+  if (!mongoose.Types.ObjectId.isValid(transactionid)) {
+    return res.status(400).send({ msg: "El codigo no es válido" });
+  }
+  try {
+    const response = await Transaction.findById(transactionid);
 
-  const response = await Transacion.findById(transactionid);
-
-  if (!response) {
-    res.status(400).send({ msg: "Verifique el codigo" });
-  } else {
-    console.log(response)
-    res.status(200).send({course:response.course,clientname:response.clientname,clientci:response.clientci});
+    if (!response) {
+      return res.status(400).send({ msg: "Verifique el código" });
+    } else {
+      console.log(response);
+      return res.status(200).send({
+        course: response.course,
+        clientname: response.clientname,
+        clientci: response.clientci
+      });
+    }
+  } catch (error) {
+    console.log(error)
+    return res.status(500).send({ msg: "Error en el servidor" });
+    
   }
 }
 

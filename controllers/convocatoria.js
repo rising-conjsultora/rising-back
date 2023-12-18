@@ -2,22 +2,13 @@ const Convocatoria = require("../models/convocatoria");
 const image = require("../utils/image");
 
 function createConvocatoria(req, res) {
-  const post = new Convocatoria();
+  console.log(req.body)
+  const cod = new Convocatoria();
   const registro = new Convocatoria({
     ...req.body,
-    path:post._id.toString()
-
+    path:cod._id.toString()
   });
-  // const registro=new Object(
-  //   {...post,
-  //   path:post._id.toString()}
-  // )
   console.log(registro)
-  // post.created_at = new Date();
-
-  // const imagePath = image.getFilePath(req.files.miniature);
-  // post.miniature = imagePath;
-
   registro.save((error, postStored) => {
     if (error) {
       // console.log(error)

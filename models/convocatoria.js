@@ -3,19 +3,19 @@ const mongoosePaginate = require("mongoose-paginate");
 
 const ConvocatoriaSchema = mongoose.Schema({
   title: String,
-  miniature: String,
-
   position:String,
-  requirements:String,
   date:String,
   pay:Number,
+  location:String,
+  cv:Boolean,
+  forms:Boolean,
+  courses:[String],
+  path:String
+  // courses: [{
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: 'Convocatoria' // Hace referencia al modelo 'Usuario'
+  // }]
 
-  content: String,
-  path: {
-    type: String,
-    unique: true,
-  },
-  created_at: Date,
 });
 
 ConvocatoriaSchema.plugin(mongoosePaginate);

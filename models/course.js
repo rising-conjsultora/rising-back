@@ -5,7 +5,7 @@ const CourseSchema = mongoose.Schema({
   title: String,
   miniature: String,
   description: String,
-  url: String,
+  urlimage: String,
   price: Number,
   score: Number,
 });

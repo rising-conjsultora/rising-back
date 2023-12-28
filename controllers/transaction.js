@@ -47,9 +47,10 @@ async function getTransactions(req, res) {
 
 async function createTransaction(req, res) {
   const date= new Date()
+  console.log(date)
   const {price}=req.body
   const precio=parseInt(price)
-    const transaction = new Transaction({...req.body,price:precio,date}); 
+    const transaction = new Transaction({...req.body,price:precio,date,state:false}); 
     
     console.log(transaction)
     transaction.save((error, transacionStored) => {

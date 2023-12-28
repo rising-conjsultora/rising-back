@@ -20,7 +20,7 @@ app.use(bodyParser.json());
 app.use(express.static("uploads"));
 
 
-// app.use(cors());
+app.use(cors());
 // app.use('/',authRoutes)
 app.use(`/`, authRoutes);
 app.use(`/`, userRoutes);

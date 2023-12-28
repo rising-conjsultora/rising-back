@@ -18,7 +18,7 @@ function createCourse(req, res) {
 }
 
  async function getCourse(req, res) {
-  console.log(req.query)
+  // console.log(req.query)
   const { page = 1, limit = 10 } = req.query;
   const options = {
     page: parseInt(page),
@@ -27,7 +27,7 @@ function createCourse(req, res) {
   };
 
   Course.paginate({}, options, (error, courses) => {
-    console.log(courses)
+    // console.log(courses)
     if (error) {
       res.status(400).send({ msg: "Error al obtener los cursos" });
     } else {

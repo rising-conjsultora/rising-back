@@ -2,7 +2,7 @@ const Convocatoria = require("../models/convocatoria");
 const image = require("../utils/image");
 
 function createConvocatoria(req, res) {
-  console.log(req.body)
+  // console.log(req.body)
   const cod = new Convocatoria();
   const registro = new Convocatoria({
     ...req.body,
@@ -38,14 +38,11 @@ function getConvocatorias(req, res) {
 }
 
 function updateConvocatoria(req, res) {
+
   const { id } = req.params;
   const postData = req.body;
-
-  if (req.files.miniature) {
-    const imagePath = image.getFilePath(req.files.miniature);
-    postData.miniature = imagePath;
-  }
-
+  console.log(postData)
+ 
   Convocatoria.findByIdAndUpdate({ _id: id }, postData, (error) => {
     if (error) {
       res.status(400).send({ msg: "Error al actualizar el post" });

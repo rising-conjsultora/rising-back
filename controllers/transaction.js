@@ -12,11 +12,12 @@ async function getVerificateTransaction(req, res) {
     if (!response) {
       return res.status(400).send({ msg: "Verifique el código" });
     } else {
-      console.log(response);
+      // console.log(response);
       return res.status(200).send({
         course: response.course,
         clientname: response.clientname,
-        clientci: response.clientci
+        grade:response.grade,
+        id: response._id
       });
     }
   } catch (error) {
@@ -30,7 +31,7 @@ async function getTransactions(req, res) {
   const clientid=req.params.clientid;
     console.log(clientid)     
     try {
-      const transactions = await Transacion.find({clientid:clientid});      
+      const transactions = await Transaction.find({clientid:clientid});      
       if (transactions) {
         console.log(transactions)
         res.status(200).send(transactions);
@@ -48,7 +49,7 @@ async function createTransaction(req, res) {
   const date= new Date()
   const {price}=req.body
   const precio=parseInt(price)
-    const transaction = new Transacion({...req.body,price:precio,date}); 
+    const transaction = new Transaction({...req.body,price:precio,date}); 
     
     console.log(transaction)
     transaction.save((error, transacionStored) => {
@@ -64,7 +65,7 @@ async function createTransaction(req, res) {
 async function updateClient(req, res) {
   const { id } = req.params;
   const clientData = req.body;
-  Transacion.findByIdAndUpdate({ _id: id }, clientData, (error) => {
+  Transaction.findByIdAndUpdate({ _id: id }, clientData, (error) => {
     if (error) {
       res.status(400).send({ msg: "Error al actualizar el cliente" });
     } else {
@@ -75,7 +76,7 @@ async function updateClient(req, res) {
 
 async function deleteClient(req, res) {
   const { id } = req.params;
-  Transacion.findByIdAndDelete(id, (error) => {
+  Transaction.findByIdAndDelete(id, (error) => {
     if (error) {
       res.status(400).send({ msg: "Error al eliminar el cliente" });
     } else {

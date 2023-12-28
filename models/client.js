@@ -8,7 +8,8 @@ const ClientSchema = mongoose.Schema({
     unique: true,
   },
   grade: String,
-  phone:String, 
+  phone:String,
+  city:String 
 });
 ClientSchema.plugin(mongoosePaginate);
 module.exports = mongoose.model("Client", ClientSchema);

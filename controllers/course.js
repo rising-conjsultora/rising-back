@@ -3,6 +3,7 @@ const image = require("../utils/image");
 
 function createCourse(req, res) {
   const course = new Course(req.body);
+  
 
   course.save((error, courseStored) => {
     if (error) {
@@ -41,7 +42,6 @@ async function getAllCourses(req, res) {
 function updateCourse(req, res) {
   const { id } = req.params;
   const courseData = req.body;
-
 
   Course.findByIdAndUpdate({ _id: id }, courseData, (error) => {
     if (error) {

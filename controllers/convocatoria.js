@@ -4,6 +4,7 @@ const image = require("../utils/image");
 function createConvocatoria(req, res) {
   // console.log(req.body)
   const cod = new Convocatoria();
+  console.log(req.body)
   const registro = new Convocatoria({
     ...req.body,
     path:cod._id.toString()
@@ -12,7 +13,7 @@ function createConvocatoria(req, res) {
   registro.save((error, postStored) => {
     if (error) {
       // console.log(error)
-      res.status(400).send({ msg: "Error al creat el post" });
+      res.status(400).send({ msg: "Error al creat el convocatoria" });
     } else {
       res.status(201).send(postStored);
     }
@@ -78,10 +79,24 @@ function getConvocatoria(req, res) {
   });
 }
 
+
+function deletePrevConvocatorias(req, res) {
+  const { fecha } = req.params;
+  Convocatoria.deleteMany({ date: { $lt: fecha } }, (error) => {
+    if (error) {
+      res.status(400).send({ msg: "Error al eliminar las convocatorias" });
+    } else {
+      res.status(200).send({ msg: "Convocatorias eliminadas" });
+    }
+  });
+}
+
+
 module.exports = {
   createConvocatoria,
   getConvocatorias,
   updateConvocatoria,
   deleteConvocatoria,
   getConvocatoria,
+  deletePrevConvocatorias
 };

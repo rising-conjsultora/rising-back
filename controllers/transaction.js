@@ -39,6 +39,7 @@ async function getTransactions(req, res) {
           date:trans.date,
           grade:trans.clientid.grade,
           state:trans.state,
+          code:trans.code,
           _id:trans._id,
          }
         })
@@ -238,6 +239,7 @@ async function getTransactionsSend(req, res) {
          clientname:trans.clientid.name,
          clientid:trans.clientid._id,
          date:trans.date,
+         code:trans.code,
          grade:trans.clientid.grade,
          state:trans.state,
          _id:trans._id,
